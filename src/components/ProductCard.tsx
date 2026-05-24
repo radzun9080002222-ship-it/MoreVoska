@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Eye } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Product } from '@/types/product';
-import { useCart } from '@/contexts/CartContext';
 import { cn } from '@/lib/utils';
 
 interface ProductCardProps {
@@ -12,95 +9,73 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
-  const { addToCart } = useCart();
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addToCart(product, 1);
-  };
-
   return (
-    <div
+    <Link
+      to={`/product/${product.id}`}
       className={cn(
-        "group relative bg-card rounded-2xl overflow-hidden shadow-ocean transition-all duration-500 hover:shadow-ocean-lg hover:-translate-y-2",
+        'group block relative',
         className
       )}
     >
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-muted">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] bg-brand-warm">
         {product.images[0] ? (
           <img
             src={product.images[0]}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-ocean-foam to-muted">
-            <span className="font-serif text-4xl text-ocean-light">🕯️</span>
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-warm to-brand-sand/40">
+            <span className="font-serif text-5xl text-brand-teal/40">🕯️</span>
           </div>
         )}
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ocean-deep/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        {/* Quick actions */}
-        <div className="absolute bottom-4 left-4 right-4 flex gap-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-          <Link to={`/product/${product.id}`} className="flex-1">
-            <Button variant="glass" size="sm" className="w-full gap-2">
-              <Eye className="w-4 h-4" />
-              Подробнее
-            </Button>
-          </Link>
-          <Button
-            variant="ocean"
-            size="icon"
-            onClick={handleAddToCart}
-            disabled={product.inStock === 0}
-            className="shrink-0"
-          >
-            <ShoppingCart className="w-4 h-4" />
-          </Button>
+        {/* Badges */}
+        <div className="absolute top-4 left-4 flex flex-col gap-2">
+          {product.isNew && (
+            <span className="px-3 py-1 text-[10px] tracking-[0.18em] uppercase font-medium bg-brand-warm/95 text-brand-teal-deep rounded-full backdrop-blur-sm">
+              Новинка
+            </span>
+          )}
+          {product.featured && !product.isNew && (
+            <span className="px-3 py-1 text-[10px] tracking-[0.18em] uppercase font-medium bg-brand-gold/95 text-brand-warm rounded-full backdrop-blur-sm">
+              Хит
+            </span>
+          )}
         </div>
 
-        {/* Featured badge */}
-        {product.featured && (
-          <div className="absolute top-4 left-4 px-3 py-1 bg-gradient-to-r from-gold to-gold-light text-ocean-deep text-xs font-semibold rounded-full">
-            Хит
-          </div>
-        )}
-
-        {/* Out of stock badge */}
         {product.inStock === 0 && (
-          <div className="absolute top-4 right-4 px-3 py-1 bg-destructive text-destructive-foreground text-xs font-medium rounded-full">
-            Нет в наличии
+          <div className="absolute inset-0 flex items-center justify-center bg-brand-warm/70 backdrop-blur-[2px]">
+            <span className="text-[11px] tracking-[0.2em] uppercase text-brand-teal-deep font-medium">
+              Нет в наличии
+            </span>
           </div>
         )}
       </div>
 
       {/* Content */}
-      <div className="p-5">
-        <span className="text-xs text-ocean-secondary font-medium tracking-wider uppercase">
+      <div className="pt-6 px-1">
+        <span className="text-[10px] tracking-[0.22em] uppercase text-brand-teal/70 font-medium">
           {product.category}
         </span>
-        <h3 className="font-serif text-xl font-medium text-foreground mt-1 mb-2 line-clamp-1">
+        <h3 className="font-serif text-2xl font-light text-foreground mt-2 mb-2 leading-tight">
           {product.name}
         </h3>
-        <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+        <p className="text-sm text-muted-foreground/90 leading-relaxed line-clamp-2 mb-4 font-light">
           {product.description}
         </p>
-        <div className="flex items-center justify-between">
-          <span className="font-serif text-2xl font-semibold text-ocean-primary">
+        <div className="flex items-baseline justify-between pt-2 border-t border-brand-sand/40">
+          <span className="font-serif text-xl text-brand-teal-deep">
             {product.price.toLocaleString('ru-RU')} ₽
           </span>
-          {product.inStock > 0 && product.inStock <= 5 && (
-            <span className="text-xs text-gold font-medium">
-              Осталось {product.inStock} шт.
-            </span>
-          )}
+          <span className="text-xs tracking-[0.15em] uppercase text-brand-teal/80 group-hover:text-brand-gold transition-colors">
+            Подробнее →
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
