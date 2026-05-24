@@ -48,6 +48,13 @@
     --gold: 43 70% 55%;
     --gold-light: 43 60% 70%;
     --cream: 40 50% 97%;
+
+    /* Brand: Море Воска */
+    --brand-teal: 181 76% 32%;
+    --brand-teal-deep: 183 83% 26%;
+    --brand-gold: 38 56% 62%;
+    --brand-sand: 38 53% 80%;
+    --brand-warm: 48 41% 96%;
     
     /* Gradients */
     --gradient-ocean: linear-gradient(135deg, hsl(190 60% 30%) 0%, hsl(174 70% 35%) 100%);

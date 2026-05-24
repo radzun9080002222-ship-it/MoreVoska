@@ -64,6 +64,13 @@ export default {
           light: "hsl(var(--gold-light))",
         },
         cream: "hsl(var(--cream))",
+        brand: {
+          teal: "hsl(var(--brand-teal))",
+          "teal-deep": "hsl(var(--brand-teal-deep))",
+          gold: "hsl(var(--brand-gold))",
+          sand: "hsl(var(--brand-sand))",
+          warm: "hsl(var(--brand-warm))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
