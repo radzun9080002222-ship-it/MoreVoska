@@ -6,8 +6,48 @@ import pumpkinClassic from '@/assets/pumpkin-classic.png';
 import pumpkinBotanic from '@/assets/pumpkin-botanic.png';
 import pumpkinMoss from '@/assets/pumpkin-moss.png';
 import pumpkinLifestyle from '@/assets/pumpkin-lifestyle.png';
+import nautilusAll from '@/assets/nautilus-all.png';
+import nautilusLaguna from '@/assets/nautilus-laguna.png';
+import nautilusPearl from '@/assets/nautilus-pearl.png';
+import nautilusOcean from '@/assets/nautilus-ocean.png';
+import nautilusLifestyle from '@/assets/nautilus-lifestyle.png';
 
 const defaultProducts: Product[] = [
+  {
+    id: 'nautilus-shell',
+    name: 'Декоративная ракушка «Nautilus»',
+    description:
+      'Эстетичная интерьерная ракушка ручной работы для хранения украшений, свечей и декоративных мелочей.',
+    fullDescription:
+      'О морской эстетике в интерьере\n\nДекоративная ракушка «Nautilus» — интерьерное изделие ручной работы, вдохновлённое эстетикой моря и спокойствием прибрежных мотивов.\n\nИзделие можно использовать как:\n— подставку для украшений\n— хранение колец и серёг\n— интерьерный декор\n— декоративную подачу свечей и ароматов\n\nКаждая ракушка создаётся вручную, поэтому оттенок и рисунок могут незначительно отличаться, сохраняя уникальность изделия.\n\nХарактеристики:\n• Материал: гипс\n• Тип: интерьерный декор\n• Изготовление: ручная работа\n• Назначение: хранение украшений / декор\n• Размер: компактный настольный',
+    price: 1290,
+    images: [nautilusAll, nautilusLaguna, nautilusPearl, nautilusOcean, nautilusLifestyle],
+    category: 'Гипс',
+    inStock: 10,
+    featured: true,
+    isNew: true,
+    variants: [
+      {
+        id: 'laguna',
+        name: 'Лагуна',
+        description: 'Мятно-бирюзовый оттенок с серебристой окантовкой.',
+        image: nautilusLaguna,
+      },
+      {
+        id: 'pearl',
+        name: 'Жемчужина',
+        description: 'Белый цвет с золотой окантовкой и деликатным перламутровым эффектом.',
+        image: nautilusPearl,
+      },
+      {
+        id: 'ocean',
+        name: 'Океан',
+        description: 'Бело-синие морские переливы, напоминающие волну и морскую пену.',
+        image: nautilusOcean,
+      },
+    ],
+    createdAt: new Date().toISOString(),
+  },
   {
     id: 'pumpkin-box',
     name: 'Шкатулка «Тыква»',
@@ -102,12 +142,12 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('products_v2');
+    const saved = localStorage.getItem('products_v3');
     return saved ? JSON.parse(saved) : defaultProducts;
   });
 
   useEffect(() => {
-    localStorage.setItem('products_v2', JSON.stringify(products));
+    localStorage.setItem('products_v3', JSON.stringify(products));
   }, [products]);
 
   const addProduct = (product: Omit<Product, 'id' | 'createdAt'>) => {
