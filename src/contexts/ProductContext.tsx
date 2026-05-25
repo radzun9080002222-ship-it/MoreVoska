@@ -11,8 +11,48 @@ import nautilusLaguna from '@/assets/nautilus-laguna.png';
 import nautilusPearl from '@/assets/nautilus-pearl.png';
 import nautilusOcean from '@/assets/nautilus-ocean.png';
 import nautilusLifestyle from '@/assets/nautilus-lifestyle.png';
+import lagunaAll from '@/assets/laguna-all.png';
+import lagunaTiffany from '@/assets/laguna-tiffany.png';
+import lagunaAmethyst from '@/assets/laguna-amethyst.png';
+import lagunaPearl from '@/assets/laguna-pearl.png';
+import lagunaLifestyle from '@/assets/laguna-lifestyle.png';
 
 const defaultProducts: Product[] = [
+  {
+    id: 'laguna-box',
+    name: 'Декоративная шкатулка «Лагуна»',
+    description:
+      'Эстетичная декоративная шкатулка в форме морской раковины. Подходит для хранения украшений, ключей и ароматных мелочей — атмосфера моря и premium coastal decor.',
+    fullDescription:
+      'Декоративная шкатулка ручной работы в форме раковины — стильный элемент интерьера и практичный аксессуар для хранения мелочей. Каждое изделие создаётся вручную, поэтому оттенок и текстура могут слегка отличаться, сохраняя уникальность каждой работы.\n\nПодходит для:\n— украшений\n— колец и серёжек\n— декоративного хранения\n— подарка\n— coastal / beach / premium интерьера\n\nХарактеристики:\n• Материал: гипс\n• Тип: интерьерная шкатулка\n• Изготовление: ручная работа\n• Финиш: глянцевый premium\n• Доступно изготовление в индивидуальном оттенке',
+    price: 1290,
+    images: [lagunaAll, lagunaTiffany, lagunaAmethyst, lagunaPearl, lagunaLifestyle],
+    category: 'Гипс',
+    inStock: 10,
+    featured: true,
+    isNew: true,
+    variants: [
+      {
+        id: 'tiffany',
+        name: 'Тиффани',
+        description: 'Насыщенный бирюзовый оттенок с премиальным глянцем.',
+        image: lagunaTiffany,
+      },
+      {
+        id: 'amethyst',
+        name: 'Аметист',
+        description: 'Нежный лавандово-фиолетовый оттенок, спокойная premium-эстетика.',
+        image: lagunaAmethyst,
+      },
+      {
+        id: 'pearl',
+        name: 'Жемчужина',
+        description: 'Белая глянцевая поверхность с золотой окантовкой — luxury coastal style.',
+        image: lagunaPearl,
+      },
+    ],
+    createdAt: new Date().toISOString(),
+  },
   {
     id: 'nautilus-shell',
     name: 'Декоративная ракушка «Nautilus»',
