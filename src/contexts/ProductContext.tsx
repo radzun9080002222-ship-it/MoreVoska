@@ -182,12 +182,12 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('products_v3');
+    const saved = localStorage.getItem('products_v4');
     return saved ? JSON.parse(saved) : defaultProducts;
   });
 
   useEffect(() => {
-    localStorage.setItem('products_v3', JSON.stringify(products));
+    localStorage.setItem('products_v4', JSON.stringify(products));
   }, [products]);
 
   const addProduct = (product: Omit<Product, 'id' | 'createdAt'>) => {
