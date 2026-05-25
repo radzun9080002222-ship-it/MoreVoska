@@ -50,77 +50,87 @@ const Cart: React.FC = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
-              {items.map(({ product, quantity }) => (
-                <div
-                  key={product.id}
-                  className="flex gap-4 p-4 bg-card rounded-xl shadow-ocean"
-                >
-                  {/* Image */}
-                  <div className="w-24 h-24 rounded-lg overflow-hidden bg-muted shrink-0">
-                    {product.images[0] ? (
-                      <img
-                        src={product.images[0]}
-                        alt={product.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-3xl">
-                        🕯️
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <Link
-                      to={`/product/${product.id}`}
-                      className="font-serif text-lg font-medium text-foreground hover:text-ocean-primary transition-colors line-clamp-1"
-                    >
-                      {product.name}
-                    </Link>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {product.category}
-                    </p>
-                    <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center border border-input rounded-lg">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8"
-                          onClick={() => updateQuantity(product.id, quantity - 1)}
-                        >
-                          <Minus className="w-3 h-3" />
-                        </Button>
-                        <span className="w-8 text-center text-sm font-medium">
-                          {quantity}
-                        </span>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8"
-                          onClick={() => updateQuantity(product.id, quantity + 1)}
-                          disabled={quantity >= product.inStock}
-                        >
-                          <Plus className="w-3 h-3" />
-                        </Button>
-                      </div>
-                      <span className="font-serif text-lg font-semibold text-ocean-primary">
-                        {(product.price * quantity).toLocaleString('ru-RU')} ₽
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Remove */}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeFromCart(product.id)}
-                    className="shrink-0 text-muted-foreground hover:text-destructive"
+              {items.map((item) => {
+                const { product, quantity, cartKey, variantName, selectedImage } = item;
+                const image = selectedImage || product.images[0];
+                return (
+                  <div
+                    key={cartKey}
+                    className="flex gap-4 p-4 bg-card rounded-xl shadow-ocean"
                   >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
-              ))}
+                    {/* Image */}
+                    <div className="w-24 h-24 rounded-lg overflow-hidden bg-muted shrink-0">
+                      {image ? (
+                        <img
+                          src={image}
+                          alt={product.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-3xl">
+                          🕯️
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <Link
+                        to={`/product/${product.id}`}
+                        className="font-serif text-lg font-medium text-foreground hover:text-ocean-primary transition-colors line-clamp-1"
+                      >
+                        {product.name}
+                      </Link>
+                      <p className="text-xs text-muted-foreground/80 mt-1 tracking-wide">
+                        {product.category}
+                      </p>
+                      {variantName && (
+                        <p className="text-xs text-muted-foreground mt-1 tracking-[0.08em]">
+                          <span className="text-muted-foreground/70">Вариант:</span>{' '}
+                          <span className="text-foreground/80 font-medium">{variantName}</span>
+                        </p>
+                      )}
+                      <div className="flex items-center justify-between mt-3">
+                        <div className="flex items-center border border-input rounded-lg">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => updateQuantity(cartKey, quantity - 1)}
+                          >
+                            <Minus className="w-3 h-3" />
+                          </Button>
+                          <span className="w-8 text-center text-sm font-medium">
+                            {quantity}
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => updateQuantity(cartKey, quantity + 1)}
+                            disabled={quantity >= product.inStock}
+                          >
+                            <Plus className="w-3 h-3" />
+                          </Button>
+                        </div>
+                        <span className="font-serif text-lg font-semibold text-ocean-primary">
+                          {(product.price * quantity).toLocaleString('ru-RU')} ₽
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Remove */}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeFromCart(cartKey)}
+                      className="shrink-0 text-muted-foreground hover:text-destructive"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                );
+              })}
 
               <Button
                 variant="ghost"

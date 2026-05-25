@@ -23,4 +23,9 @@ export interface Product {
 export interface CartItem {
   product: Product;
   quantity: number;
+  cartKey: string;
+  variantId?: string;
+  variantName?: string;
+  selectedImage?: string;
+  selectedOptions?: Record<string, string>;
 }
