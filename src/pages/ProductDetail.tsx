@@ -63,7 +63,7 @@ const ProductDetail: React.FC = () => {
   );
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    addToCart(product, quantity, activeVariant ? { variant: activeVariant } : undefined);
     toast({
       title: 'Добавлено в корзину',
       description: `${product.name}${activeVariant ? ` · ${activeVariant.name}` : ''} (${quantity} шт.)`,
