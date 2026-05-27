@@ -16,6 +16,13 @@ import lagunaTiffany from '@/assets/laguna-tiffany.png';
 import lagunaAmethyst from '@/assets/laguna-amethyst.png';
 import lagunaPearl from '@/assets/laguna-pearl.png';
 import lagunaLifestyle from '@/assets/laguna-lifestyle.png';
+import gaiaAll from '@/assets/gaia-all.png';
+import gaiaPearlLight from '@/assets/gaia-pearl-light.png';
+import gaiaMoonAsh from '@/assets/gaia-moon-ash.png';
+import gaiaOceanLight from '@/assets/gaia-ocean-light.png';
+import gaiaRoseQuartz from '@/assets/gaia-rose-quartz.png';
+import gaiaColdDawn from '@/assets/gaia-cold-dawn.png';
+import gaiaPeony from '@/assets/gaia-peony.png';
 
 const defaultProducts: Product[] = [
   {
@@ -124,14 +131,55 @@ const defaultProducts: Product[] = [
     createdAt: new Date().toISOString(),
   },
   {
-    id: '1',
-    name: 'Богиня Земли Гайя',
-    description: 'Изысканная декоративная свеча ручной работы, изображающая богиню Гайю. Украшена золотыми деталями и символами природы. Идеально подойдёт для создания атмосферы гармонии.',
-    price: 2500,
-    images: [goddessCandle],
+    id: 'gaia-goddess',
+    name: 'Богиня Gaia',
+    description: 'Эстетичная декоративная свеча в образе богини Gaia — интерьерный арт-объект для дома, подарка, медитаций и атмосферы спокойствия в premium coastal luxury эстетике.',
+    fullDescription:
+      'Эстетичная декоративная свеча в образе богини Gaia — символа женской энергии, материнства, спокойствия и внутренней гармонии. Свеча создана как интерьерный арт-объект: для дома, медитаций, подарка, атмосферы уюта и premium decor.\n\nКаждое изделие создаётся вручную, поэтому оттенок и текстура могут слегка отличаться, сохраняя уникальность каждой работы.\n\nПодходит для:\n— premium интерьера\n— подарка\n— спальни\n— медитации\n— эстетичного декора\n— свечной композиции\n— фотозоны\n— атмосферы спокойствия',
+    price: 1490,
+    images: [gaiaAll, gaiaPearlLight, gaiaMoonAsh, gaiaOceanLight, gaiaRoseQuartz, gaiaColdDawn, gaiaPeony],
     category: 'Свечи',
-    inStock: 5,
+    inStock: 12,
     featured: true,
+    isNew: true,
+    variants: [
+      {
+        id: 'pearl-light',
+        name: 'Жемчужный свет',
+        description: 'Тёплый молочный оттенок с золотыми акцентами. Самый универсальный и премиальный вариант.',
+        image: gaiaPearlLight,
+      },
+      {
+        id: 'moon-ash',
+        name: 'Пепел Луны',
+        description: 'Фактурный каменно-серый оттенок с мистическим характером и акцентом на природную текстуру.',
+        image: gaiaMoonAsh,
+      },
+      {
+        id: 'ocean-light',
+        name: 'Свет океана',
+        description: 'Глубокий бирюзово-морской оттенок, вдохновлённый энергией воды и coastal эстетикой.',
+        image: gaiaOceanLight,
+      },
+      {
+        id: 'rose-quartz',
+        name: 'Розовый кварц',
+        description: 'Нежный розово-пудровый оттенок, вдохновлённый одноимённым минералом любви и гармонии.',
+        image: gaiaRoseQuartz,
+      },
+      {
+        id: 'cold-dawn',
+        name: 'Холодный рассвет',
+        description: 'Мягкий небесно-голубой оттенок со спокойной прохладной эстетикой.',
+        image: gaiaColdDawn,
+      },
+      {
+        id: 'peony',
+        name: 'Пион',
+        description: 'Насыщенный розовый оттенок с тёплым настроением и мягкой женственной эстетикой.',
+        image: gaiaPeony,
+      },
+    ],
     createdAt: new Date().toISOString(),
   },
   {
@@ -182,12 +230,12 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('products_v4');
+    const saved = localStorage.getItem('products_v5');
     return saved ? JSON.parse(saved) : defaultProducts;
   });
 
   useEffect(() => {
-    localStorage.setItem('products_v4', JSON.stringify(products));
+    localStorage.setItem('products_v5', JSON.stringify(products));
   }, [products]);
 
   const addProduct = (product: Omit<Product, 'id' | 'createdAt'>) => {
