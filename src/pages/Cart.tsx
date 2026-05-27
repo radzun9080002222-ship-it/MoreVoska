@@ -51,8 +51,10 @@ const Cart: React.FC = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => {
-                const { product, quantity, cartKey, variantName, selectedImage } = item;
+                const { product, quantity, cartKey, variantName, selectedImage, selectedOptions } = item;
                 const image = selectedImage || product.images[0];
+                const displayVariant = variantName || selectedOptions?.color;
+                const displayName = displayVariant ? `${product.name} — ${displayVariant}` : product.name;
                 return (
                   <div
                     key={cartKey}
@@ -79,15 +81,15 @@ const Cart: React.FC = () => {
                         to={`/product/${product.id}`}
                         className="font-serif text-lg font-medium text-foreground hover:text-ocean-primary transition-colors line-clamp-1"
                       >
-                        {product.name}
+                        {displayName}
                       </Link>
                       <p className="text-xs text-muted-foreground/80 mt-1 tracking-wide">
                         {product.category}
                       </p>
-                      {variantName && (
+                      {displayVariant && (
                         <p className="text-xs text-muted-foreground mt-1 tracking-[0.08em]">
-                          <span className="text-muted-foreground/70">Вариант:</span>{' '}
-                          <span className="text-foreground/80 font-medium">{variantName}</span>
+                          <span className="text-muted-foreground/70">Цвет:</span>{' '}
+                          <span className="text-foreground/80 font-medium">{displayVariant}</span>
                         </p>
                       )}
                       <div className="flex items-center justify-between mt-3">
