@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Product } from '@/types/product';
-import goddessCandle from '@/assets/goddess-candle.jpg';
 import pumpkinHero from '@/assets/pumpkin-hero.png';
 import pumpkinClassic from '@/assets/pumpkin-classic.png';
 import pumpkinBotanic from '@/assets/pumpkin-botanic.png';
